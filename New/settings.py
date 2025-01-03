@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from pathlib import Path
-
+from pathlib import Path 
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -122,13 +122,25 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+# ]
+
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Additional directories for static files
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    os.path.join(BASE_DIR, 'static'),  # Ensure this points to your static folder
 ]
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+]
 # settings.py
 
 CSRF_TRUSTED_ORIGINS = [
