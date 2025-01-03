@@ -83,6 +83,8 @@ DATABASES = {
 
 ALLOWED_HOSTS = [
     'django-1-n2s4.onrender.com',
+     '127.0.0.1',
+    
     # Add other allowed hosts if necessary
 ]
 
@@ -122,19 +124,13 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static",
-# ]
-
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Additional directories for static files
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Ensure this points to your static folder
+    BASE_DIR / "static",
 ]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
 
 
 
