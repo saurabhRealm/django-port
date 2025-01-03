@@ -138,9 +138,7 @@ STATICFILES_DIRS = [
 
 
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-]
+
 # settings.py
 
 CSRF_TRUSTED_ORIGINS = [
