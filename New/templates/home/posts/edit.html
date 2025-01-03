@@ -1,0 +1,46 @@
+{% extends 'layouts/base.html' %}
+{% block title %} Edit Post {% endblock%}
+{% block stylesheets %}{% endblock stylesheets %}
+{% block content %}
+<div class="content">
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Edit  Post</h5>
+        </div>
+        <div class="card-body">
+          <form method="post" action="{% url 'editpost' postid %}">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-5 pr-md-1">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" name="name"  placeholder="Name" value="{{ post.name }}">
+                </div>
+              </div>
+          
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea rows="4" cols="80" name="description" class="form-control" placeholder="Description" value="">{{ post.description }}
+                    
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-fill btn-primary">Save</button>
+        </div>
+      </div>
+    </form>
+
+    </div>
+  
+  </div>
+</div>
+
+  {% endblock content%}
