@@ -82,7 +82,7 @@ DATABASES = {
 }
 
 ALLOWED_HOSTS = [
-    'django-1-n2s4.onrender.com',
+    'django-1-a5e8.onrender.com',
      '127.0.0.1',
     
     # Add other allowed hosts if necessary
