@@ -1,0 +1,398 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Banner {% endblock %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+  <div class="row">
+
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"> Home </h4>
+
+          <form action="{% url 'home' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="home">
+            <div class="form-group">
+              <label for="exampleInputName1">Name</label>
+              <input type="text" name="title" class="form-control" value="{{ home.title }}" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="editor">Description</label>
+              <textarea name="description" class="form-control" id="editor"
+                placeholder="Description">{{ home.description }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"> About Me</h4>
+
+
+          <form action="{% url 'home' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="about">
+            <div class="form-group">
+              <label for="exampleInputName1">Title</label>
+              <input type="text" name="title" value="{{ aboutus.title }}" class="form-control" id="exampleInputName1"
+                placeholder="Title">
+            </div>
+            <div class="form-group">
+              <label for="editor">Description</label>
+              <textarea name="description" class="form-control" id="editor"
+                placeholder="Description">{{ aboutus.description }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Honors and Awards</h4>
+          <form class="forms-sample">
+            <div class="form-group">
+              <label for="exampleInputName1">Name</label>
+              <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="editor">Description</label>
+              <textarea name="description" class="form-control" id="editor"
+                placeholder="Description">{{aboutus.description}}</textarea>
+            </div>
+            <div class="form-group">
+              <label>File upload</label>
+              <input type="file" name="img[]" class="file-upload-default">
+              <div class="input-group col-xs-12">
+                <input type="file" class="form-control file-upload-info" placeholder="Upload Image">
+                <span class="input-group-append">
+                  <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputName1">Title</label>
+              <input type="text" name="title" value="{{aboutus.title}}" class="form-control" id="exampleInputName1"
+                placeholder="Title">
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputName1">Title</label>
+              <input type="text" name="title" value="{{aboutus.title}}" class="form-control" id="exampleInputName1"
+                placeholder="Title">
+            </div>
+
+
+            <div class="form-group">
+              <label for="exampleInputName1">Title</label>
+              <input type="text" name="title" value="{{aboutus.title}}" class="form-control" id="exampleInputName1"
+                placeholder="Title">
+            </div>
+
+
+
+            <div class="form-group">
+              <label for="editor">Description</label>
+              <textarea name="description" class="form-control" id="editor"
+                placeholder="Description">{{aboutus.description}}</textarea>
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <button class="btn btn-light">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Skills</h4>
+          <form action="{% url 'home' %}" id="dynamicForm" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="skills">
+            <div id="inputContainer">
+              {% for skill in skills %}
+              <div class="form3">
+
+                <div class="form-group">
+                  <label for="exampleInputName1">Title</label>
+                  <input type="text" name="title[]" class="form-control me-2" value="{{ skill.title }}"
+                    placeholder="Enter title">
+                  <button type="button" class="btn btn-danger removeButton3">Remove</button>
+
+                </div>
+              </div>
+
+              {% endfor %}
+            </div>
+            <button type="button" class="btn btn-primary" id="addMoreButton">Add More</button>
+            <button type="submit" class="btn btn-success mt-2">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"> Recent Education</h4>
+          <form action="{% url 'home' %}" id="dynamicForm" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="recenteducation">
+            <div id="input2">
+              {% for recenteducation in recenteducations %}
+              <div class="form2">
+                <div class="form-group">
+                  <label for="exampleInputName1">Title</label>
+                  <input type="text" name="title[]" value="{{ recenteducation.title }}" class="form-control"
+                    id="exampleInputName1" placeholder="Title">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputName1">Course Title</label>
+                  <input type="text" name="course_title[]" value="{{ recenteducation.title2 }}" class="form-control"
+                    id="exampleInputName1" placeholder="Course Title">
+                </div>
+                <div class="form-group">
+                  <label for="editor">Description</label>
+                  <textarea name="description[]" class="form-control" id="editor"
+                    placeholder="Description">{{ recenteducation.description }}</textarea>
+                  <button type="button" class="btn btn-danger removeButton2">Remove</button>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <button type="button" class="btn btn-primary" id="addedu">Add More</button>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"> Experience</h4>
+          <form action="{% url 'home' %}" id="dynamicForm" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="experience">
+            <div id="input3">
+              {% for experiences in experience %}
+              <div class="form2">
+                <div class="form-group">
+                  <label for="exampleInputName1">Title</label>
+                  <input type="text" name="title[]" value="{{ experiences.title }}" class="form-control"
+                    id="exampleInputName1" placeholder="Title">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputName1">Course Title</label>
+                  <input type="text" name="course_title[]" value="{{ experiences.title2 }}" class="form-control"
+                    id="exampleInputName1" placeholder="Course Title">
+                </div>
+                <div class="form-group">
+                  <label for="editor">Description</label>
+                  <textarea name="description[]" class="form-control" id="editor"
+                    placeholder="Description">{{ experiences.description }}</textarea>
+                  <button type="button" class="btn btn-danger removeButton2">Remove</button>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <button type="button" class="btn btn-primary" id="addexp">Add More</button>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    
+
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"> Project</h4>
+          <form action="" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="slug" value="project">
+            <div id="input4">
+              <div class="form-group">
+                <label for="exampleInputName1">Title</label>
+                <input type="text" name="title" value="" class="form-control" id="exampleInputName1"
+                  placeholder="Title">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputName1">Project URL</label>
+                <input type="text" name="project_url" value="" class="form-control" id="exampleInputName1"
+                  placeholder="Project URL">
+              </div>
+              <div class="form-group">
+                <label for="editor">Description</label>
+                <textarea name="description" class="form-control" id="editor" placeholder="Description"></textarea>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="addproj">Add More</button>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"> Certifications </h4>
+          <form id="certificationsForm" method="POST">
+            {% csrf_token %}
+            <div id="certificationsContainer">
+              <div class="form-group">
+                <label for="certificationTitle">Title</label>
+                <input type="text" name="certification_title[]" class="form-control me-2" placeholder="Enter title">
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="addCertificationButton">Add More</button>
+            <button type="submit" class="btn btn-success mt=5">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#addMoreButton').click(function () {
+      $('#inputContainer').append(`
+        <div class="form-group">
+          <label class="me-2">Title:</label>
+          <input type="text" name="title[]" class="form-control me-2" placeholder="Enter title">
+          <button type="button" class="btn btn-danger removeButton">Remove</button>
+        </div>
+      `);
+    });
+
+    $('#addedu').click(function () {
+      $('#input2').append(`
+        <div class="form2 mt-5">
+          <h4 class="card-title"> Recent Education</h4>
+          <div class="form-group">
+            <label class="me-2">Title:</label>
+            <input type="text" name="title[]" class="form-control me-2" placeholder="Enter title">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Course Title</label>
+            <input type="text" name="course_title[]" value="" class="form-control" id="exampleInputName1" placeholder="Course Title">
+          </div>
+          <div class="form-group">
+            <label for="editor">Description</label>
+            <textarea name="description[]" class="form-control" id="editor" placeholder="Description"></textarea>
+          </div>
+          <button type="button" class="btn btn-danger removeButton2 mt-5">Remove</button>
+        </div>
+      `);
+    });
+
+    $('#addexp').click(function () {
+      $('#input3').append(`
+        <div class="form3 mt-5">
+          <div class="form-group">
+            <label class="me-2">Title:</label>
+            <input type="text" name="title[]" class="form-control me-2" placeholder="Enter title">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Course Title</label>
+            <input type="text" name="course_title[]" value="" class="form-control" id="exampleInputName1" placeholder="Course Title">
+          </div>
+          <div class="form-group">
+            <label for="editor">Description</label>
+            <textarea name="description[]" class="form-control" id="editor" placeholder="Description"></textarea>
+          </div>
+          <button type="button" class="btn btn-danger removeButton4 ">Remove</button>
+        </div>
+      `);
+    });
+
+    $('#addproj').click(function () {
+      $('#input4').append(`
+        <div class="form4 mt-5">
+          <h4 class="card-title"> Project</h4>
+          <div class="form-group">
+            <label class="me-2">Title:</label>
+            <input type="text" name="title[]" class="form-control me-2" placeholder="Enter title">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Project URL</label>
+            <input type="text" name="project_url" value="" class="form-control" id="exampleInputName1" placeholder="Project URL">
+          </div>
+          <div class="form-group">
+            <label for="editor">Description</label>
+            <textarea name="description" class="form-control" id="editor" placeholder="Description"></textarea>
+          </div>
+          <button type="button" class="btn btn-danger removeButton5 mt-5">Remove</button>
+        </div>
+      `);
+    });
+
+    $('#addCertificationButton').click(function () {
+      $('#certificationsContainer').append(`
+        <div class="form-group">
+          <label class="me-2">Title:</label>
+          <input type="text" name="certification_title[]" class="form-control me-2" placeholder="Enter title">
+          <button type="button" class="btn btn-danger removeButton5">Remove</button>
+        </div>
+      `);
+    });
+
+    $(document).on('click', '.removeButton', function () {
+      $(this).closest('.form-group').remove();
+    });
+
+    $(document).on('click', '.removeButton2', function () {
+      $(this).closest('.form2').remove();
+    });
+
+    $(document).on('click', '.removeButton3', function () {
+      $(this).closest('.form3').remove();
+    });
+
+    $(document).on('click', '.removeButton4', function () {
+      $(this).closest('.form4').remove();
+    });
+
+    $(document).on('click', '.removeButton5', function () {
+      $(this).closest('.form5').remove();
+    });
+  });
+</script>
+
+<script>
+  ClassicEditor
+    .create(document.querySelector('#editor'))
+    .catch(error => {
+      console.error(error);
+    });
+</script>
+{% endblock javascripts %}
