@@ -224,29 +224,38 @@
     </div>
 
 
-    
+
+
+
 
     <div class="col-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
           <h4 class="card-title"> Project</h4>
-          <form action="" method="POST" enctype="multipart/form-data">
+          <form action="{% url 'home' %}" id="dynamicForm" method="POST">
+            {% csrf_token %}
             <input type="hidden" name="slug" value="project">
             <div id="input4">
-              <div class="form-group">
-                <label for="exampleInputName1">Title</label>
-                <input type="text" name="title" value="" class="form-control" id="exampleInputName1"
-                  placeholder="Title">
+              {% for experiences in project %}
+              <div class="form4">
+                <div class="form-group">
+                  <label for="exampleInputName1">Title</label>
+                  <input type="text" name="title[]" value="{{ experiences.title }}" class="form-control"
+                    id="exampleInputName1" placeholder="Title">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputName1">Project URL</label>
+                  <input type="text" name="project_url[]" value="{{ experiences.url }}" class="form-control"
+                    id="exampleInputName1" placeholder="Project URL">
+                </div>
+                <div class="form-group">
+                  <label for="editor">Description</label>
+                  <textarea name="description[]" class="form-control" id="editor"
+                    placeholder="Description">{{ experiences.description }}</textarea>
+                  <button type="button" class="btn btn-danger removeButton4">Remove</button>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="exampleInputName1">Project URL</label>
-                <input type="text" name="project_url" value="" class="form-control" id="exampleInputName1"
-                  placeholder="Project URL">
-              </div>
-              <div class="form-group">
-                <label for="editor">Description</label>
-                <textarea name="description" class="form-control" id="editor" placeholder="Description"></textarea>
-              </div>
+              {% endfor %}
             </div>
             <button type="button" class="btn btn-primary" id="addproj">Add More</button>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
@@ -258,17 +267,27 @@
     <div class="col-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title"> Certifications </h4>
-          <form id="certificationsForm" method="POST">
+          <h4 class="card-title">Certifications</h4>
+          <form action="{% url 'home' %}" id="dynamicForm" method="POST">
             {% csrf_token %}
+            <input type="hidden" name="slug" value="certifications">
             <div id="certificationsContainer">
-              <div class="form-group">
-                <label for="certificationTitle">Title</label>
-                <input type="text" name="certification_title[]" class="form-control me-2" placeholder="Enter title">
+              {% for experiences in certifications %}
+              <div class="form5">
+                <div class="form-group">
+                  <label for="exampleInputName1">Title</label>
+                  <input type="text" name="certification_title[]" value="{{ experiences.title }}" class="form-control"
+                    id="exampleInputName1" placeholder="Title">
+                </div>
+            <button type="button" class="btn btn-danger removeButton5 mt-5">Remove</button>
+
               </div>
+              {% endfor %}
+
             </div>
             <button type="button" class="btn btn-primary" id="addCertificationButton">Add More</button>
-            <button type="submit" class="btn btn-success mt=5">Submit</button>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            
           </form>
         </div>
       </div>
@@ -297,14 +316,13 @@
     $('#addedu').click(function () {
       $('#input2').append(`
         <div class="form2 mt-5">
-          <h4 class="card-title"> Recent Education</h4>
           <div class="form-group">
             <label class="me-2">Title:</label>
             <input type="text" name="title[]" class="form-control me-2" placeholder="Enter title">
           </div>
           <div class="form-group">
             <label for="exampleInputName1">Course Title</label>
-            <input type="text" name="course_title[]" value="" class="form-control" id="exampleInputName1" placeholder="Course Title">
+            <input type="text" name="course_title[]" class="form-control" id="exampleInputName1" placeholder="Course Title">
           </div>
           <div class="form-group">
             <label for="editor">Description</label>
@@ -317,20 +335,20 @@
 
     $('#addexp').click(function () {
       $('#input3').append(`
-        <div class="form3 mt-5">
+        <div class="form2 mt-5">
           <div class="form-group">
             <label class="me-2">Title:</label>
             <input type="text" name="title[]" class="form-control me-2" placeholder="Enter title">
           </div>
           <div class="form-group">
             <label for="exampleInputName1">Course Title</label>
-            <input type="text" name="course_title[]" value="" class="form-control" id="exampleInputName1" placeholder="Course Title">
+            <input type="text" name="course_title[]" class="form-control" id="exampleInputName1" placeholder="Course Title">
           </div>
           <div class="form-group">
             <label for="editor">Description</label>
             <textarea name="description[]" class="form-control" id="editor" placeholder="Description"></textarea>
           </div>
-          <button type="button" class="btn btn-danger removeButton4 ">Remove</button>
+          <button type="button" class="btn btn-danger removeButton2 mt-5">Remove</button>
         </div>
       `);
     });
@@ -338,30 +356,31 @@
     $('#addproj').click(function () {
       $('#input4').append(`
         <div class="form4 mt-5">
-          <h4 class="card-title"> Project</h4>
           <div class="form-group">
             <label class="me-2">Title:</label>
             <input type="text" name="title[]" class="form-control me-2" placeholder="Enter title">
           </div>
           <div class="form-group">
             <label for="exampleInputName1">Project URL</label>
-            <input type="text" name="project_url" value="" class="form-control" id="exampleInputName1" placeholder="Project URL">
+            <input type="text" name="project_url[]" class="form-control" id="exampleInputName1" placeholder="Project URL">
           </div>
           <div class="form-group">
             <label for="editor">Description</label>
-            <textarea name="description" class="form-control" id="editor" placeholder="Description"></textarea>
+            <textarea name="description[]" class="form-control" id="editor" placeholder="Description"></textarea>
           </div>
-          <button type="button" class="btn btn-danger removeButton5 mt-5">Remove</button>
+          <button type="button" class="btn btn-danger removeButton4 mt-5">Remove</button>
         </div>
       `);
     });
 
     $('#addCertificationButton').click(function () {
       $('#certificationsContainer').append(`
-        <div class="form-group">
-          <label class="me-2">Title:</label>
-          <input type="text" name="certification_title[]" class="form-control me-2" placeholder="Enter title">
-          <button type="button" class="btn btn-danger removeButton5">Remove</button>
+        <div class="form5 mt-5">
+          <div class="form-group">
+            <label class="me-2">Title:</label>
+            <input type="text" name="certification_title[]" class="form-control me-2" placeholder="Enter title">
+          </div>
+          <button type="button" class="btn btn-danger removeButton5 mt-5">Remove</button>
         </div>
       `);
     });

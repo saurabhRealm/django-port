@@ -25,6 +25,7 @@ admin.site.index_title = "Welcome to Portal"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include('home.urls'))
+    path("adminss", include('home.urls')),
+    path("", include('front.urls'))
     
 ]

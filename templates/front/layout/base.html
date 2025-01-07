@@ -1,0 +1,156 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Saurabh's Portfolio</title>
+    <meta name="description" content="Welcome to Saurabh's personal portfolio website. Explore my projects, skills, and experience." />
+    <meta name="keywords" content="Saurabh, portfolio, web developer, projects, resume, skills, experience" />
+    <meta name="author" content="Saurabh" />
+
+    <!-- Open Graph Meta Tags for better social media integration -->
+    <meta property="og:title" content="Saurabh's Portfolio" />
+    <meta property="og:description" content="Welcome to Saurabh's personal portfolio website. Explore my projects, skills, and experience." />
+    <meta property="og:image" content="static/front/images/portfolio-preview.png" />
+    <meta property="og:url" content="https://yourportfolio.com" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Saurabh's Portfolio" />
+    <meta name="twitter:description" content="Welcome to Saurabh's personal portfolio website. Explore my projects, skills, and experience." />
+    <meta name="twitter:image" content="static/front/images/portfolio-preview.png" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="static/front/images/favicon.ico">
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="static/front/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="static/front/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="static/front/css/mobiriseicons.css">
+    <link rel="stylesheet" href="static/front/css/magnific-popup.css">
+    <link rel="stylesheet" href="static/front/css/animate.min.css">
+    <link rel="stylesheet" href="static/front/css/style.css">
+</head>
+
+
+<body>
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">Loading...</div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg fixed-top custom-nav sticky">
+        <div class="container">
+            <a class='navbar-brand logo' href='/'>
+                <img src="static/front/images/logo.png" alt="" class="img-fluid logo-light">
+                <img src="static/front/images/logo.png" alt="" class="img-fluid logo-dark">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="mdi mdi-menu"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active">
+                        <a href="#home" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#award" class="nav-link">Awards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#education" class="nav-link">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#experiance" class="nav-link">Experiance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    {% block content %}{% endblock content %}
+
+
+
+  
+ <a href="#" class="back_top"> <i class="mbri-arrow-up"> </i> </a>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="static/front/js/jquery.min.js"></script>
+    <script src="static/front/js/popper.min.js"></script>
+    <script src="static/front/js/bootstrap.bundle.min.js"></script>
+    <script src="static/front/js/jquery.easing.min.js"></script>
+    <script src="static/front/js/scrollspy.min.js"></script>
+    <script src="static/front/js/typed.js"></script>
+    <script src="static/front/js/jquery.magnific-popup.min.js"></script>
+    <script src="static/front/js/isotope.js"></script>
+    <script src="static/front/js/particles.js"></script>
+    <script src="static/front/js/particles.app.js"></script>
+    <script src="static/front/js/parallax.js"></script>
+    <script src="static/front/js/contact.js"></script>
+    <script src="static/front/js/custom.js"></script>
+    {% block javascripts %}{% endblock javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+                $('.error-message').text(''); 
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '',
+                    data: formData,
+                    beforeSend: function() {
+                        $('#status').show();
+                        $('#preloader').show();
+                    },
+                    success: function(response) {
+                        $('#preloader').hide();
+                        console.log(response);
+                        Swal.fire({
+                            title: "Success!",
+                            text: "Thank you for your submission!",
+                            icon: "success"
+                        });
+                        $('#contactForm')[0].reset(); 
+                    },
+                    error: function(xhr, status, error) {
+                        $('#preloader').hide();
+                        console.log(xhr.responseText);
+                        var errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            $('#' + key + '_error').text(value[0]); 
+                        });
+                    }
+                });
+            });
+
+            // Preloader
+            $(window).on('load', function() {
+                $('#status').fadeOut();
+                $('#preloader').delay(350).fadeOut('slow');
+                $('body').delay(350).css({'overflow':'visible'});
+            });
+
+            // Typed.js initialization
+            $(".element").each(function () {
+                var $this = $(this);
+                $this.typed({
+                    strings: $this.attr('data-elements').split(','),
+                    typeSpeed: 100,
+                    backDelay: 3000
+                });
+            });
+        });
+    </script>
+</body>
+</html>

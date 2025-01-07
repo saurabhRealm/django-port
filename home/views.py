@@ -63,6 +63,8 @@ def home(request):
         course_title = request.POST.getlist('course_title[]')
         titles = request.POST.getlist('title[]')
         descs = request.POST.getlist('description[]')
+        project_url = request.POST.getlist('project_url[]')
+        certification_titles = request.POST.getlist('certification_title[]')
 
         print(titles)  # Debugging line to check if titles are being captured
 
@@ -108,10 +110,35 @@ def home(request):
                 slug="experience",
                 date=datetime.today()
                  )
-           
+        elif slug == "project":
+            Home.objects.filter(slug="project").delete()
+            for title, url, desc in zip(titles, project_url, descs):
+                 Home.objects.create(
+                title=title,
+                url=url,
+                description=desc,
+                slug="project",
+                date=datetime.today()
+                 )
+     
+        elif slug == "certifications":
+            print(certification_titles)  # Debugging line to check if certification titles are being captured correctly
+            Home.objects.filter(slug="certifications").delete()
+            for title in certification_titles:
+                Home.objects.create(title=title ,slug="certifications", date=datetime.today())
+
         return redirect('home')
     
     skills = Home.objects.filter(slug="skills")
     experience = Home.objects.filter(slug="experience")
-    return render(request, 'home/banner/index.html', {'home': home, 'aboutus': aboutus, 'skills': skills , 'recenteducations': recenteducation ,
-                                                      'experience': experience})
+    project = Home.objects.filter(slug="project")
+    certifications = Home.objects.filter(slug="certifications")
+    return render(request, 'home/banner/index.html', {
+        'home': home,
+        'aboutus': aboutus,
+        'skills': skills,
+        'recenteducations': recenteducation,
+        'experience': experience,
+        'project': project,
+        'certifications': certifications
+    })
