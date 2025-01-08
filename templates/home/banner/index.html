@@ -7,6 +7,19 @@
 
 {% block content %}
 
+
+
+<style>
+  p {
+    color: rgb(0 0 0 / 80%) !important;
+    margin-bottom: 5px;
+}
+ul li, ol li {
+    color: #000000!important;
+}
+
+
+</style>
 <div class="content">
   <div class="row">
 
@@ -24,7 +37,7 @@
             </div>
             <div class="form-group">
               <label for="editor">Description</label>
-              <textarea name="description" class="form-control" id="editor"
+              <textarea name="description" class="form-control" 
                 placeholder="Description">{{ home.description }}</textarea>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
@@ -50,7 +63,7 @@
             </div>
             <div class="form-group">
               <label for="editor">Description</label>
-              <textarea name="description" class="form-control" id="editor"
+              <textarea name="description" class="form-control" 
                 placeholder="Description">{{ aboutus.description }}</textarea>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
@@ -71,7 +84,7 @@
             </div>
             <div class="form-group">
               <label for="editor">Description</label>
-              <textarea name="description" class="form-control" id="editor"
+              <textarea name="description" class="form-control" 
                 placeholder="Description">{{aboutus.description}}</textarea>
             </div>
             <div class="form-group">
@@ -108,7 +121,7 @@
 
             <div class="form-group">
               <label for="editor">Description</label>
-              <textarea name="description" class="form-control" id="editor"
+              <textarea name="description" class="form-control" 
                 placeholder="Description">{{aboutus.description}}</textarea>
             </div>
 
@@ -171,7 +184,7 @@
                 </div>
                 <div class="form-group">
                   <label for="editor">Description</label>
-                  <textarea name="description[]" class="form-control" id="editor"
+                  <textarea name="description[]" class="form-control" 
                     placeholder="Description">{{ recenteducation.description }}</textarea>
                   <button type="button" class="btn btn-danger removeButton2">Remove</button>
                 </div>
@@ -209,7 +222,7 @@
                 </div>
                 <div class="form-group">
                   <label for="editor">Description</label>
-                  <textarea name="description[]" class="form-control" id="editor"
+                  <textarea name="description[]" class="form-control" 
                     placeholder="Description">{{ experiences.description }}</textarea>
                   <button type="button" class="btn btn-danger removeButton2">Remove</button>
                 </div>
@@ -250,7 +263,7 @@
                 </div>
                 <div class="form-group">
                   <label for="editor">Description</label>
-                  <textarea name="description[]" class="form-control" id="editor"
+                  <textarea name="description[]" class="form-control pditor"  
                     placeholder="Description">{{ experiences.description }}</textarea>
                   <button type="button" class="btn btn-danger removeButton4">Remove</button>
                 </div>
@@ -300,9 +313,23 @@
 
 {% block javascripts %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/38.0.0/classic/ckeditor.js"></script>
+
+
 
 <script>
   $(document).ready(function () {
+
+
+    Array.from(document.getElementsByClassName('pditor')).forEach(element => {
+    ClassicEditor.create(element)
+        .catch(error => {
+            console.error(error);
+        });
+});
+
+            
+      
     $('#addMoreButton').click(function () {
       $('#inputContainer').append(`
         <div class="form-group">
@@ -326,7 +353,7 @@
           </div>
           <div class="form-group">
             <label for="editor">Description</label>
-            <textarea name="description[]" class="form-control" id="editor" placeholder="Description"></textarea>
+            <textarea name="description[]" class="form-control"  placeholder="Description"></textarea>
           </div>
           <button type="button" class="btn btn-danger removeButton2 mt-5">Remove</button>
         </div>
@@ -346,7 +373,7 @@
           </div>
           <div class="form-group">
             <label for="editor">Description</label>
-            <textarea name="description[]" class="form-control" id="editor" placeholder="Description"></textarea>
+            <textarea name="description[]" class="form-control"  placeholder="Description"></textarea>
           </div>
           <button type="button" class="btn btn-danger removeButton2 mt-5">Remove</button>
         </div>
@@ -366,7 +393,7 @@
           </div>
           <div class="form-group">
             <label for="editor">Description</label>
-            <textarea name="description[]" class="form-control" id="editor" placeholder="Description"></textarea>
+            <textarea name="description[]" class="form-control pditor"  placeholder="Description"></textarea>
           </div>
           <button type="button" class="btn btn-danger removeButton4 mt-5">Remove</button>
         </div>
