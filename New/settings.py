@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+     'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,17 @@ MIDDLEWARE = [
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+MEDIA_URL = '/media/'  # URL to access media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# settings.py
+CKEDITOR_UPLOAD_PATH = "uploads/"  # Directory where uploaded files will be stored
+CKEDITOR_IMAGE_BACKEND = "pillow"  # Image handling backend
+
+
+
+
 
 ROOT_URLCONF = "New.urls"
 
@@ -67,6 +79,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                'django.template.context_processors.media', 
             ],
         },
     },

@@ -36,7 +36,13 @@
     <link href="{% static 'assets/css/theme-switcher.css' %}" rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{% static 'assets/demo/demo.css' %}" rel="stylesheet"/>
-
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css">
+    <style>
+        /* Hide the CKEditor version warning */
+        .cke_notifications_area {
+            display: none !important;
+        }
+    </style>
     <!-- Specific Page CSS goes HERE  -->
     {% block stylesheets %}{% endblock stylesheets %}
         
@@ -63,7 +69,11 @@
     {% include 'includes/scripts.html' %}
 
     <!-- Specific Page JS goes HERE  -->
-    {% block javascripts %}{% endblock javascripts %}
+    {% block javascripts %}
+    {{ block.super }}
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.umd.js"></script>
+    {% endblock javascripts %}
 
 </body>
 </html>

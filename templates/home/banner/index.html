@@ -77,62 +77,67 @@ ul li, ol li {
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Honors and Awards</h4>
-          <form class="forms-sample">
+    
+          <form action="{% url 'home' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="slug" value="honors_and_awards">
+    
             <div class="form-group">
-              <label for="exampleInputName1">Name</label>
-              <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+              <label for="exampleInputName1">Title</label>
+              <input type="text" name="title" value="{{ honors.title }}" class="form-control" id="exampleInputName1" placeholder="Title">
             </div>
-            <div class="form-group">
+              <div class="form-group">
               <label for="editor">Description</label>
-              <textarea name="description" class="form-control" 
-                placeholder="Description">{{aboutus.description}}</textarea>
+              <textarea name="description" class="form-control" placeholder="Description">{{ honors.description }}</textarea>
             </div>
             <div class="form-group">
-              <label>File upload</label>
-              <input type="file" name="img[]" class="file-upload-default">
+              <label for="exampleInputName1">Title 2 </label>
+              <input type="text" name="title2" value="{{ honors.title2 }}" class="form-control" id="exampleInputName1" placeholder="Title">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputName1">Title 3 </label>
+              <input type="text" name="title3" value="{{ honors.title3 }}" class="form-control" id="exampleInputName1" placeholder="Title">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputName1">Title 4 </label>
+              <input type="text" name="title4" value="{{ honors.title4 }}" class="form-control" id="exampleInputName1" placeholder="Title">
+            </div>
+          
+            <div class="form-group">
+              <label for="editor">Description2</label>
+              <textarea name="description2" class="form-control" placeholder="Description">{{ honors.description2 }}</textarea>
+            </div>
+    
+            <div class="form-group">
+              <label>Upload Image</label>
+              <input type="file" name="image" class="file-upload-default">
               <div class="input-group col-xs-12">
-                <input type="file" class="form-control file-upload-info" placeholder="Upload Image">
+                <input type="text" class="form-control file-upload-info" placeholder="Upload Image" readonly>
                 <span class="input-group-append">
-                  <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                  <button class="file-upload-browse btn btn-primary" type="button">Browse</button>
                 </span>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="exampleInputName1">Title</label>
-              <input type="text" name="title" value="{{aboutus.title}}" class="form-control" id="exampleInputName1"
-                placeholder="Title">
+              <input type="file" name="image" class="file-upload-default">
+              <div class="input-group col-xs-12">
+            <img src="{{ MEDIA_URL }}{{ honors.image }}" style="width: 100px;" alt="Honors Image">
+              
+              
+              </div>
             </div>
-
-            <div class="form-group">
-              <label for="exampleInputName1">Title</label>
-              <input type="text" name="title" value="{{aboutus.title}}" class="form-control" id="exampleInputName1"
-                placeholder="Title">
-            </div>
-
-
-            <div class="form-group">
-              <label for="exampleInputName1">Title</label>
-              <input type="text" name="title" value="{{aboutus.title}}" class="form-control" id="exampleInputName1"
-                placeholder="Title">
-            </div>
-
-
-
-            <div class="form-group">
-              <label for="editor">Description</label>
-              <textarea name="description" class="form-control" 
-                placeholder="Description">{{aboutus.description}}</textarea>
-            </div>
-
-
 
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
-            <button class="btn btn-light">Cancel</button>
+            <button type="button" class="btn btn-light">Cancel</button>
           </form>
         </div>
       </div>
     </div>
+    
+
+
+
     <div class="col-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
@@ -313,20 +318,25 @@ ul li, ol li {
 
 {% block javascripts %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/38.0.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+
+<script>
 
 
+  document.querySelectorAll('.pditor').forEach(function(element) {
+    CKEDITOR.replace(element, {
+      allowedContent: true, // Ensure classes in <li> are allowed
+      entities: false
+    });
+  });
 
+
+</script>
 <script>
   $(document).ready(function () {
 
 
-    Array.from(document.getElementsByClassName('pditor')).forEach(element => {
-    ClassicEditor.create(element)
-        .catch(error => {
-            console.error(error);
-        });
-});
+
 
             
       
@@ -381,24 +391,38 @@ ul li, ol li {
     });
 
     $('#addproj').click(function () {
-      $('#input4').append(`
-        <div class="form4 mt-5">
-          <div class="form-group">
-            <label class="me-2">Title:</label>
-            <input type="text" name="title[]" class="form-control me-2" placeholder="Enter title">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputName1">Project URL</label>
-            <input type="text" name="project_url[]" class="form-control" id="exampleInputName1" placeholder="Project URL">
-          </div>
-          <div class="form-group">
-            <label for="editor">Description</label>
-            <textarea name="description[]" class="form-control pditor"  placeholder="Description"></textarea>
-          </div>
-          <button type="button" class="btn btn-danger removeButton4 mt-5">Remove</button>
-        </div>
-      `);
-    });
+  $('#input4').append(`
+    <div class="form4 mt-5">
+      <div class="form-group">
+        <label class="me-2">Title:</label>
+        <input type="text" name="title[]" class="form-control me-2" placeholder="Enter title">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputName1">Project URL</label>
+        <input type="text" name="project_url[]" class="form-control" id="exampleInputName1" placeholder="Project URL">
+      </div>
+      <div class="form-group">
+        <label for="editor">Description</label>
+        <textarea name="description[]" class="form-control pditor" placeholder="Description"></textarea>
+      </div>
+      <button type="button" class="btn btn-danger removeButton4 mt-5">Remove</button>
+    </div>
+  `);
+
+  // Re-initialize ClassicEditor for dynamically added textareas
+  $('.pditor').each(function () {
+    if (!$(this).data('editor-initialized')) {
+      ClassicEditor
+        .create(this)
+        .then(editor => {
+          $(this).data('editor-initialized', true); // Prevent re-initialization
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  });
+});
 
     $('#addCertificationButton').click(function () {
       $('#certificationsContainer').append(`

@@ -1,7 +1,7 @@
 from django.shortcuts import render , HttpResponse , redirect , get_object_or_404
 from datetime import datetime
 from home.models import Post , Home
-
+import os
 # Create your views here.
 
 def index(request):
@@ -53,11 +53,18 @@ def home(request):
     home = Home.objects.filter(slug="home").first()
     aboutus = Home.objects.filter(slug="about").first()
     recenteducation = Home.objects.filter(slug="recenteducation")
+    honors = Home.objects.filter(slug="honors_and_awards").first()
     
     if request.method == 'POST':
         slug = request.POST.get('slug')
         title = request.POST.get('title')
         desc = request.POST.get('description')
+        image = request.FILES.get('image')
+        title2 = request.POST.get('title2')
+        title3 = request.POST.get('title3')
+        title4 = request.POST.get('title4')
+
+        description2 = request.POST.get('description2')
 
 
         course_title = request.POST.getlist('course_title[]')
@@ -76,7 +83,7 @@ def home(request):
             else:
                 home = Home(title=title, description=desc, slug="home", date=datetime.today())
                 home.save()
-
+    
         if slug == "about":
             if aboutus:
                 aboutus.title = title
@@ -85,6 +92,34 @@ def home(request):
             else:
                 aboutus = Home(title=title, description=desc, slug="about", date=datetime.today())
                 aboutus.save()
+
+        elif slug == "honors_and_awards":
+            # Save or update the Honors and Awards section
+            honors = Home.objects.filter(slug="honors_and_awards").first()
+            if honors:
+                honors.title = title
+                honors.title2 = title2
+                honors.title3 = title3
+                honors.title4 = title4
+                honors.description = desc
+                honors.description2 = description2
+                if image:
+                    os.remove(honors.image.path)
+                    honors.image = image  
+                honors.save()
+            else:
+                honors = Home(
+                    title=title,
+                    title2 = title2,
+                    title3 = title3,
+                    title4 = title4,
+                    description=desc,
+                    description2 = description2,
+                    slug="honors_and_awards",
+                    image=image,  # Save the uploaded image
+                    date=datetime.today()
+                )
+                honors.save()       
         elif slug == "skills":
             Home.objects.filter(slug="skills").delete()
             for title in titles:
@@ -140,5 +175,6 @@ def home(request):
         'recenteducations': recenteducation,
         'experience': experience,
         'project': project,
-        'certifications': certifications
+        'certifications': certifications,
+        'honors': honors
     })
