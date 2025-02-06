@@ -5,10 +5,10 @@ import os
 # Create your views here.
 
 def index(request):
-    context = {
-            "variable" : "this is sent "
-        }
-    return render(request ,'home/index.html' , context)
+    return render(request ,'home/index.html')
+
+def login(request):
+    return render(request ,'home/login.html')
 
 def about(request):
     return HttpResponse('this is aboutpage ')

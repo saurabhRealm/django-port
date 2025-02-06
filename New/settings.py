@@ -50,6 +50,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'home.middleware.auth_middleware.AuthMiddleware',
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -102,6 +103,7 @@ ALLOWED_HOSTS = [
     'django-1-a5e8.onrender.com',
      '127.0.0.1',
      'saurabhrealm.cloud',
+     'localhost',
     
     # Add other allowed hosts if necessary
 ]
