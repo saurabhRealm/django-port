@@ -7,7 +7,7 @@ class AuthMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if not request.user.is_authenticated and request.path == reverse('index'):
+        if not request.user.is_authenticated and request.path == reverse('adminhome'):
             return redirect('login')
         response = self.get_response(request)
         return response
